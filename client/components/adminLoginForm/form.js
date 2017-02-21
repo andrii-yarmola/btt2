@@ -34,10 +34,12 @@ class AdminForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     
-    if (true) {
+    if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state).then(
-        () => {},
+        () => {
+          this.context.router.push('/some');
+        },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     }
@@ -89,6 +91,10 @@ class AdminForm extends React.Component {
 
 AdminForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired
+}
+
+AdminForm.contextTypes = {
+  router:React.PropTypes.object.isRequired
 }
 
 export default AdminForm;

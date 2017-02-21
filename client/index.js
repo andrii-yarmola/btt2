@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import LoginPage from './components/loginPage/loginPage';
+import WellcomePage from './components/wellcomepage/wellcomepage';
 import App from './App';
 
 import './bootstrap.css';
@@ -29,7 +30,7 @@ const router = (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={LoginPage}></IndexRoute>
+        <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/some" component={LoginPage} onEnter={requireAuth}></Route>
       </Route>
