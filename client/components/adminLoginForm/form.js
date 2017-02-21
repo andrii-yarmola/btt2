@@ -1,5 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
+import validateInput from '../../../server/shared/validations/signup';
+import FormRow from '../common/FormRow';
 
 class AdminForm extends React.Component {
   constructor(props) {
@@ -19,13 +21,26 @@ class AdminForm extends React.Component {
     this.setState({[e.target.name]: e.target.value});
   }
   
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+    
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    
+    return isValid;
+  }
+  
   onSubmit(e) {
-    this.setState({ errors: {}, isLoading: true });
     e.preventDefault();
-    this.props.userSignupRequest(this.state).then(
-      () => {},
-      (err) => this.setState({ errors: err.response.data, isLoading: false })
-    );
+    
+    if (true) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.userSignupRequest(this.state).then(
+        () => {},
+        (err) => this.setState({ errors: err.response.data, isLoading: false })
+      );
+    }
   }
   
   render() {
@@ -35,32 +50,25 @@ class AdminForm extends React.Component {
         <div className="row">
           <div className="col-xs-4 col-xs-offset-4">
             <h1>Login</h1>
-            <div className="form-row">
-              <input 
-                value={this.state.username}
-                onChange={this.onChange}
-                name="username"
-                type="text"
-                className={classnames("form-control", { 'error': errors.username })}
-                placeholder="Your Login"
-                data-required="true"
-              />
-              {errors.username && <span className="error-message">{errors.username}</span>}
-            </div>
-            <div className="form-row">
-              <input type="password"
-                value={this.state.password}
-                onChange={this.onChange}
-                name="password"
-                className={classnames("form-control", { 'error': errors.password })}
-                placeholder="Your Password"
-                data-required="true"
-              />
-              {errors.password && <span className="error-message">{errors.password}</span>}
-              <div className="forgot-link">
-                <a href="#">Forgot your password?</a>
-              </div>
-            </div>
+            <FormRow
+              value={this.state.username}
+              onChange={this.onChange}
+              name="username"
+              type="text"
+              placeholder="Your Login"
+              data-required
+              error={errors.username}
+            />
+            <FormRow
+              value={this.state.password}
+              onChange={this.onChange}
+              name="password"
+              type="password"
+              placeholder="Your Password"
+              data-required
+              error={errors.password}
+              hasLink
+            />
             <div className="form-row">
               <input type="checkbox" id="remember-box"></input>
               <label htmlFor="remember-box">Remember me</label>
