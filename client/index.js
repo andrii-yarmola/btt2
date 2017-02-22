@@ -14,7 +14,7 @@ import { Provider } from 'react-redux';
 import store, { history } from './store';
 
 function isUserSignedIn(state) {
-  return state.auth.getIn(['user', 'isSignedIn']);
+  // return state.auth.getIn(['user', 'isSignedIn']);
 }
 
 function requireAuth(nextState, transition, cb) {
@@ -32,7 +32,7 @@ const router = (
       <Route path="/" component={App}>
         <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="/login" component={LoginPage}></Route>
-        <Route path="/some" component={LoginPage} onEnter={requireAuth}></Route>
+        <Route path="/dashboard" component={WellcomePage} onEnter={requireAuth}></Route>
       </Route>
     </Router>
   </Provider>

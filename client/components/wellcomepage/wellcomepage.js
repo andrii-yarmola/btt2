@@ -7,7 +7,7 @@ class WellcomePage extends React.Component {
       <main className="main">
         <div className="content">
           <div className="container container-narrow">
-            WELLCOME
+            WELLCOME to dashboard
           </div>
         </div>
       </main>

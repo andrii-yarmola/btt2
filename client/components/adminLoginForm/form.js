@@ -38,7 +38,7 @@ class AdminForm extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state).then(
         () => {
-          this.context.router.push('/some');
+          this.context.router.push('/dashboard');
         },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
