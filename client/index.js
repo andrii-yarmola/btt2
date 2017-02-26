@@ -34,7 +34,7 @@ const router = (
         <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/signup" component={SignupPage}></Route>
-        <Route path="/dashboard" component={WellcomePage} onEnter={requireAuth}></Route>
+        <Route path="/dashboard" component={WellcomePage}></Route>
       </Route>
     </Router>
   </Provider>
