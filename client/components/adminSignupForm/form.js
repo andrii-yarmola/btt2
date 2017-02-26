@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import validateInput from '../../../server/shared/validations/login';
+import validateInput from '../../../server/shared/validations/signup';
 import FormRow from '../common/FormRow';
 
 class AdminForm extends React.Component {
@@ -11,7 +11,7 @@ class AdminForm extends React.Component {
       password: '',
       errors: {},
       isLoading: false
-    };
+    }
     
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -36,8 +36,10 @@ class AdminForm extends React.Component {
     
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.login(this.state).then(
-        (res) => this.context.router.push('/dashboard'),
+      this.props.userSignupRequest(this.state).then(
+        () => {
+          this.context.router.push('/dashboard');
+        },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     }
@@ -88,12 +90,11 @@ class AdminForm extends React.Component {
 };
 
 AdminForm.propTypes = {
-  login: React.PropTypes.func.isRequired
+  userSignupRequest: React.PropTypes.func.isRequired
 }
 
 AdminForm.contextTypes = {
   router:React.PropTypes.object.isRequired
 }
-
 
 export default AdminForm;

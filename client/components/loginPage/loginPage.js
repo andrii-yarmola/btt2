@@ -1,15 +1,15 @@
 import React from 'react'
-import AdminForm from '../adminLoginForm/form'
+import AdminLoginForm from '../adminLoginForm/form'
 
 
 class LoginPage extends React.Component {
   render() {
-    const { userSignupRequest } = this.props;
+    const { login } = this.props;
     return (
       <main className="main">
         <div className="content">
           <div className="container container-narrow">
-            <AdminForm userSignupRequest={userSignupRequest}/>
+            <AdminLoginForm login={login}/>
           </div>
         </div>
       </main>
@@ -18,8 +18,8 @@ class LoginPage extends React.Component {
 };
 
 
-AdminForm.propTypes = {
-   userSignupRequest: React.PropTypes.func.isRequired
+AdminLoginForm.propTypes = {
+   login: React.PropTypes.func.isRequired
 }
 
 export default LoginPage;

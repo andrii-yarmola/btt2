@@ -35,3 +35,10 @@ export function userSignupRequest(userData) {
     return axios.post('/api/users', userData)
   }
 }
+
+// async actions
+export function login(data) {
+  return dispatch => {
+    return axios.post('/api/auth', data)
+  }
+}
