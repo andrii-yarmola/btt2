@@ -1,4 +1,4 @@
-const reactTasks = [
+export const reactTasks = [
    {
       "title":"tic-tack-toe game",
       "image_url":"images/tictack.jpg",
@@ -26,4 +26,3 @@ const reactTasks = [
    }
 ];
 
-export default reactTasks;

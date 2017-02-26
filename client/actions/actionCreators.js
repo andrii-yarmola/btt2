@@ -1,33 +1,12 @@
 import axios from 'axios';
+import setAuthToken from '../utils/setAuthToken';
+import jwt from 'jsonwebtoken';
 
-// increment
-export function increment(index) {
-  return {
-    type: 'INCREMENT_LIKES',
-    index
-  }
-}
-
-// add comment
-export function addComment(postId, author, comment) {
-  return {
-    type: 'ADD_COMMENT',
-    postId,
-    author,
-    comment
-  }
-}
-
-// remove comment
-
-export function removeComment(postId, i) {
-  return {
-    type: 'REMOVE_COMMENT',
-    i,
-    postId
-  }
-}
-
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const setCurrentUser = (user) => ({
+  type: SET_CURRENT_USER,
+  user 
+});
 
 // async actions
 export function userSignupRequest(userData) {
@@ -36,9 +15,13 @@ export function userSignupRequest(userData) {
   }
 }
 
-// async actions
 export function login(data) {
   return dispatch => {
-    return axios.post('/api/auth', data)
+    return axios.post('/api/auth', data).then(res => {
+      const token = res.data.token;
+      localStorage.setItem('jwtToken', token);
+      setAuthToken(token);
+      dispatch(setCurrentUser(jwt.decode(token)));
+    })
   }
 }
