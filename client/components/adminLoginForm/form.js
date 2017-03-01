@@ -10,7 +10,8 @@ class AdminForm extends React.Component {
       username: '',
       password: '',
       errors: {},
-      isLoading: false
+      isLoading: false,
+      isNeedToSave: false
     };
     
     this.onChange = this.onChange.bind(this);
@@ -18,7 +19,7 @@ class AdminForm extends React.Component {
   }
   
   onChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({[e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value });
   }
   
   isValid() {
@@ -35,7 +36,7 @@ class AdminForm extends React.Component {
     e.preventDefault();
     
     if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errors: {}, isLoading: true});
       this.props.login(this.state).then(
         (res) => this.context.router.push('/dashboard'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
@@ -70,7 +71,7 @@ class AdminForm extends React.Component {
               hasLink
             />
             <div className="form-row">
-              <input type="checkbox" id="remember-box"></input>
+              <input type="checkbox" name="isNeedToSave" id="remember-box" onChange={this.onChange} ></input>
               <label htmlFor="remember-box">Remember me</label>
             </div>
             <div className="form-row submit-row">

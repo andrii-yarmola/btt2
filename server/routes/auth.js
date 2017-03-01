@@ -7,17 +7,19 @@ import config from '../config';
 let router = express.Router();
 
 router.post('/', (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, isNeedToSave } = req.body;
   
   User.query({
     where: { username: req.body.username }
   }).fetch().then(user => {
     if (user && bcrypt.compareSync(password, user.get('password_digest'))) {
-      const token = jwt.sign({
-        id: user.get('id'),
-        username: user.get('username')
-      }, config.jwtSecret);
-      res.json({ token })
+      if (isNeedToSave) {
+        const token = jwt.sign({
+          id: user.get('id'),
+          username: user.get('username')
+        }, config.jwtSecret);
+        res.json({ token })
+      } else res.json();
     }
     else {
       res.status(401).json({ errors: { 
