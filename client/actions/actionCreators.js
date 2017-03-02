@@ -20,7 +20,8 @@ export function login(data) {
     return axios.post('/api/auth', data).then(res => {
       const token = res.data.token;
       if (token) {
-        localStorage.setItem('jwtToken', token);
+        // TODO : if data.isNeedToSave === false we should save userinfo sovewhere
+        if (data.isNeedToSave) { localStorage.setItem('jwtToken', token) };
         setAuthToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
       }
