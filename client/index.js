@@ -5,11 +5,7 @@ import LoginPage from './components/loginPage/loginPage';
 import SignupPage from './components/signupPage/signupPage';
 import WellcomePage from './components/wellcomepage/wellcomepage';
 import App from './App';
-
-import setAuthToken from './utils/setAuthToken'
-
-import jwt from 'jsonwebtoken';
-import { setCurrentUser } from './actions/actionCreators';
+import verifyAuthToken from './utils/verifyAuthToken';
 
 import './bootstrap.css';
 import './index.css';
@@ -32,10 +28,7 @@ function requireAuth(nextState, transition, cb) {
   }, 0);
 }
 
-if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
-}
+verifyAuthToken();
 
 const router = (
   <Provider store={store}>
