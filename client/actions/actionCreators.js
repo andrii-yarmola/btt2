@@ -2,16 +2,28 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt from 'jsonwebtoken';
 
+// sync actions
+
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const setCurrentUser = (user) => ({
   type: SET_CURRENT_USER,
   user 
 });
 
+
 // async actions
+
+export function logout() {
+  return dispatch => {
+    localStorage.removeItem('jwtToken');
+    setAuthToken(false);
+    dispatch(setCurrentUser({}));
+  }
+}
+
 export function userSignupRequest(userData) {
   return dispatch => {
-    return axios.post('/api/users', userData)
+    return axios.post('/api/users', userData);
   }
 }
 

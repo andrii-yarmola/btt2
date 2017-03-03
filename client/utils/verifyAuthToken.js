@@ -9,6 +9,8 @@ export default function verifyAuthToken(token) {
     jwt.verify(localStorage.jwtToken, config.jwtSecret , function(err, decoded) {
       if (err) {
         localStorage.removeItem('jwtToken');
+        setAuthToken(false);
+        store.dispatch(setCurrentUser({}));
       } else {
         setAuthToken(localStorage.jwtToken);
         store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));

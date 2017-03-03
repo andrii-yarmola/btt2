@@ -1,13 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { logout } from '../../actions/actionCreators';
 
 class Header extends React.Component {
+  logout(e) {
+    e.preventDefault();
+    this.props.logout();
+  }
+  
   render() {
     const { isAuth, user} = this.props.auth;
     const userInfoLine = 
       <div className="user-info-line">
         <span>Hello, <em className="username">{user.username}</em>!</span>
-        <a href="#" className="btn btn-primary">Sign out</a>
+        <a href="#" className="btn btn-primary" onClick={this.logout.bind(this)}>Sign out</a>
       </div>
     return (
       <header className="header">
@@ -24,7 +30,8 @@ class Header extends React.Component {
 };
 
 Header.propTypes = {
-  auth: React.PropTypes.object.isRequired
+  auth: React.PropTypes.object.isRequired,
+  logout: React.PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -33,4 +40,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout })(Header);
