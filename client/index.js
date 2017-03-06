@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 
 import LoginPage from './components/loginPage/loginPage';
 import SignupPage from './components/signupPage/signupPage';
-import WellcomePage from './components/wellcomepage/wellcomepage';
+import WellcomePage from './components/wellcomePage/wellcomePage';
+import DashboardPage from './components/dashboardPage/dashboardPage';
 import App from './App';
 import verifyAuthToken from './utils/verifyAuthToken';
 
@@ -37,7 +38,7 @@ const router = (
         <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/signup" component={SignupPage}></Route>
-        <Route path="/dashboard" component={WellcomePage}></Route>
+        <Route path="/dashboard" component={DashboardPage}></Route>
       </Route>
     </Router>
   </Provider>

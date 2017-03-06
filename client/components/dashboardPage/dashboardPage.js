@@ -1,13 +1,13 @@
 import React from 'react'
 
-class WellcomePage extends React.Component {
+class DashboardPage extends React.Component {
   render() {
     const { userSignupRequest } = this.props;
     return (
       <main className="main">
         <div className="content">
           <div className="container container-narrow">
-            WELLCOME!!!
+            this is dashboard
           </div>
         </div>
       </main>
@@ -16,4 +16,4 @@ class WellcomePage extends React.Component {
 };
 
 
-export default WellcomePage;
+export default DashboardPage;
