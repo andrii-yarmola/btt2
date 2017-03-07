@@ -1,11 +1,17 @@
 import React from 'react';
 import Header from '../header/header'
+import '../../index.css';
 
 const Main = React.createClass({
   render() {
     return (
-      <div>
-        {React.cloneElement(this.props.children, this.props)}
+      <div id="page">
+        <div className="container">
+          <div className="wrapper">
+            <Header/>
+            {React.cloneElement(this.props.children.props.children, this.props)}
+          </div>
+        </div>
       </div>
     )
   }

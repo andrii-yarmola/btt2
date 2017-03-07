@@ -20,7 +20,7 @@ class Header extends React.Component {
         {isAuth && userInfoLine}
         <div className="header-holder">
           <a href="#" className="logo">
-            <img src="images/logo.png" height="23" width="136" alt="img description"></img>
+            <img src="/images/logo.png" height="23" width="136" alt="img description"></img>
             <span className="title">office</span>
           </a>
         </div>

@@ -5,11 +5,13 @@ import LoginPage from './components/loginPage/loginPage';
 import SignupPage from './components/signupPage/signupPage';
 import WellcomePage from './components/wellcomePage/wellcomePage';
 import DashboardPage from './components/dashboardPage/dashboardPage';
+import AdminMain from './components/adminMain/adminMain';
 import App from './App';
 import verifyAuthToken from './utils/verifyAuthToken';
 
 import './bootstrap.css';
-import './index.css';
+import './js.css';
+
 
 // import react router deps
 import { Router, Route, IndexRoute } from 'react-router';
@@ -36,9 +38,11 @@ const router = (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={WellcomePage}></IndexRoute>
-        <Route path="/login" component={LoginPage}></Route>
-        <Route path="/signup" component={SignupPage}></Route>
-        <Route path="/dashboard" component={DashboardPage}></Route>
+        <Route path="server" component={AdminMain}>
+          <Route path="login" component={LoginPage}></Route>
+          <Route path="signup" component={SignupPage}></Route>
+          <Route path="dashboard" component={DashboardPage}></Route>
+        </Route>
       </Route>
     </Router>
   </Provider>

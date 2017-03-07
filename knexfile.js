@@ -6,7 +6,8 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'bttdb',
-      user:     'tecky',
+      // user:     'tecky',
+      user:     'andrii.yarmola',
       password: ''
     },
     pool: {

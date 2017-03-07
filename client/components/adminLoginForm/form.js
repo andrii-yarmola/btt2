@@ -38,7 +38,7 @@ class AdminForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true});
       this.props.login(this.state).then(
-        (res) => this.context.router.push('/dashboard'),
+        (res) => this.context.router.push('/server/dashboard'),
         (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
       );
     }
