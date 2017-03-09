@@ -9,10 +9,6 @@ import AdminMain from './components/adminMain/adminMain';
 import App from './App';
 import verifyAuthToken from './utils/verifyAuthToken';
 
-import './bootstrap.css';
-import './js.css';
-
-
 // import react router deps
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
@@ -39,6 +35,7 @@ const router = (
       <Route path="/" component={App}>
         <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="server" component={AdminMain}>
+          <IndexRoute component={LoginPage}></IndexRoute>
           <Route path="login" component={LoginPage}></Route>
           <Route path="signup" component={SignupPage}></Route>
           <Route path="dashboard" component={DashboardPage}></Route>
