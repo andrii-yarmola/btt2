@@ -9,6 +9,7 @@ import webpackConfig from '../webpack.config.dev';
 
 import users from './routes/users';
 import auth from './routes/auth';
+import requests from './routes/requests';
 
 let app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/requests', requests);
 
 const compiler = webpack(webpackConfig);
 

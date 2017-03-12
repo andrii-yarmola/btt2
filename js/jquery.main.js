@@ -1,7 +1,7 @@
  // page init
 jQuery(function(){
 	initCustomForms();
-	initFileUpload();
+	//initFileUpload();
 	initDatepicker();
 	initTimePicker();
 	initSameHeight();

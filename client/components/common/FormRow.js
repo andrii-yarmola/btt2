@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
-const FormRow = ({ value, onChange, name, type, placeholder, dataRequired, error, hasLink }) => {
+const FormRow = ({ value, onChange, name, type, placeholder, dataRequired, error, hasLink, formRequired }) => {
     return (
-        <div className="form-row">
+        <div className={classnames("form-row", { 'form-required': formRequired })}>
           <input 
             value={value}
             onChange={onChange}
@@ -12,6 +12,7 @@ const FormRow = ({ value, onChange, name, type, placeholder, dataRequired, error
             className={classnames("form-control", { 'error': error })}
             placeholder={placeholder}
             data-required={dataRequired}
+            required={formRequired}
           />
           {error && <span className="error-message">{error}</span>}
           {hasLink && <div className="forgot-link"><a href="#">Forgot your password?</a></div>}
@@ -27,7 +28,8 @@ FormRow.propTypes = {
     placeholder: PropTypes.string,
     dataRequired: PropTypes.bool,
     error: PropTypes.string,
-    hasLink: PropTypes.bool
+    hasLink: PropTypes.bool,
+    formRequired: PropTypes.bool
 };
 
 FormRow.defaultProps = {

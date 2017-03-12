@@ -39,3 +39,24 @@ export function login(data) {
     })
   }
 }
+
+export function sendRequest(requestData) {
+  return dispatch => {
+    const { type, name, phone, time, date, email, message } = requestData;
+
+    const data = new FormData();
+
+    data.append('type', type);
+    data.append('name', name);
+    data.append('phone', phone);
+    data.append('time', time);
+    data.append('date', date);
+    data.append('email', email);
+    data.append('message', message );
+    requestData.files.forEach(
+      (file)=> { data.append(file.name, file) }
+    );
+    
+    return axios.post('/api/requests', data);
+  }
+}
