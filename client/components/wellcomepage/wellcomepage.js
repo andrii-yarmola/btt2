@@ -2,10 +2,11 @@ import React from 'react';
 import '../../bootstrap.css';
 import '../../main.css';
 import '../../js.css';
+import ClientForm from '../clientRequestForm/form'
 
 class WellcomePage extends React.Component {
   render() {
-    const { userSignupRequest } = this.props;
+    const { sendRequest } = this.props;
     return (
       <div id="wrapper">
         <a className="contact-ico fadeInIco" href="#">
@@ -99,79 +100,11 @@ class WellcomePage extends React.Component {
             </ul>
             <div className="tab-content">
               <div role="tabpanel" className="tab-pane active" id="request">
-                <form encType="multipart/form-data" method="POST" action="/api/clientrequests" className="contact-form">
-                  <div className="form-row form-required">
-                    <input type="text" name="name" className="form-control" placeholder="Your Name" required>
-                    </input>
-                  </div>
-                  <div className="form-row form-required">
-                    <input type="email" name="email" className="form-control" placeholder="Your Email" required>
-                    </input>
-                  </div>
-                  <div className="form-row">
-                    <input type="text" name="phone" className="form-control" placeholder="Your #">
-                    </input>
-                  </div>
-                  <div className="form-row">
-                    <textarea name="message" className="form-control form-control-textarea" placeholder="Message"></textarea>
-                  </div>
-                  <div className="form-row file-upload">
-                    <ul className="file-list">
-                      <li className="uploading">
-                        <div className="upload-row">
-                          <span className="name"></span>
-                          <a href="#" className="remove text-danger">Remove</a>
-                        </div>
-                        <div className="upload-row upload-row02">
-                          <span className="progress"><span className="bar"></span></span>
-                          <a href="#" className="cancel">Cancel upload</a>
-                        </div>
-                      </li>
-                    </ul>
-                    <input type="file" className="form-control" data-jcf='{"buttonText": "Upload file"}' multiple>
-                    </input>
-                    <span className="file-note">(max. 3 files)</span>
-                  </div>
-                  <div className="form-row submit-row">
-                    <input type="submit" value="Submit" className="btn btn-primary">
-                    </input>
-                    <span className="note">This is mandatory</span>
-                  </div>
-                </form>
+                <ClientForm type="request-proposal" sendRequest= { sendRequest }/>
                 <div className="form-success-msg">Thanks!!!</div>
               </div>
               <div role="tabpanel" className="tab-pane" id="schedule">
-                <form encType="multipart/form-data" method="POST" action="/api/clientrequests" className="contact-form">
-                  <input type="hidden" name="type" value="shedule">
-                  </input>
-                  <div className="form-row form-required">
-                    <input type="text" name="name" className="form-control" placeholder="Your Name" required>
-                    </input>
-                  </div>
-                  <div className="form-row">
-                    <input type="email" name="email" className="form-control" placeholder="Your Email">
-                    </input>
-                  </div>
-                  <div className="form-row form-required">
-                    <input type="text" name="phone" className="form-control" placeholder="Your #" required>
-                    </input>
-                  </div>
-                  <div className="form-row form-required">
-                    <input type="text" className="form-control form-control-picker date-picker" placeholder="Date" name="date" required readOnly>
-                    </input>
-                    <input type="text" className="form-control form-control-picker time-picker" placeholder="Time" name="time" required readOnly>
-                    </input>
-                    <span className="form-text">and suitable time</span>
-                  </div>
-                  <div className="form-row">
-                    <textarea className="form-control form-control-textarea" name="message" placeholder="Want to use any other means of communication?"></textarea>
-                  </div>
-                  <div className="form-row submit-row">
-                    <input type="submit" value="Submit" className="btn btn-primary">
-                    </input>
-                    <span className="note">This is mandatory</span>
-                  </div>
-                </form>
+                <ClientForm type="request-call" sendRequest= { sendRequest }/>
                 <div className="form-success-msg">Thanks!!!</div>
               </div>
             </div>
@@ -182,5 +115,8 @@ class WellcomePage extends React.Component {
   }
 };
 
+ClientForm.propTypes = {
+  sendRequest: React.PropTypes.func.isRequired
+}
 
 export default WellcomePage;

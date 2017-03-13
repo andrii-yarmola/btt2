@@ -75,7 +75,8 @@ class AdminForm extends React.Component {
               <label htmlFor="remember-box">Remember me</label>
             </div>
             <div className="form-row submit-row">
-              <input className="btn btn-primary"
+              <input
+                className="btn btn-primary"
                 type="submit"
                 value="Login"
                 disabled={this.state.isLoading}
