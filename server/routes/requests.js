@@ -4,17 +4,17 @@ import isObjEmpty from 'lodash/isEmpty';
 
 import Request from '../models/request';
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' }) // file type
+
 let router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', upload.single('myuploads'), (req, res) => {
   var isValid = true; // TODO: validate
   if ( isValid ) {
     
     // const { type, name, phone, time, date, email, message } = req.body;
-    console.log(req.params);
-    console.log(req.query);
     console.log(req.body);
-    console.log(req.file);
     res.json({ success: true });
   } else {
     res.status(400).json(errors);

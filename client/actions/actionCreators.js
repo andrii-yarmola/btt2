@@ -54,7 +54,8 @@ export function sendRequest(requestData) {
     data.append('email', email);
     data.append('message', message );
     requestData.files.forEach(
-      (file)=> { data.append(file.name, file) }
+      //(file)=> { data.append(file.name, file) }
+      (file)=> { data.append('myuploads', file) }
     );
     
     return axios.post('/api/requests', data);
