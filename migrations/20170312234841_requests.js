@@ -9,6 +9,9 @@ exports.up = function(knex, Promise) {
     table.string('date');
     table.string('email');
     table.string('message');
+    table.string('file1');
+    table.string('file2');
+    table.string('file3');
     table.timestamps();
   })
 };
