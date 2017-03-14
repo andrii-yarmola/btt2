@@ -14,7 +14,6 @@ router.post('/', (req, res) => {
     console.log(req.params);
     console.log(req.query);
     console.log(req.body);
-    console.log(req.file);
     res.json({ success: true });
   } else {
     res.status(400).json(errors);
