@@ -17,7 +17,8 @@ class ClientForm extends React.Component {
       message:'',
       files: [],
       errors: {},
-      isLoading: false
+      isLoading: false,
+      isSubmitedSuccessful: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -46,8 +47,12 @@ class ClientForm extends React.Component {
     }
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true});
-      this.props.sendRequest(this.state);
-      // then response treatment
+      this.props.sendRequest(this.state).then(
+        () => {
+          this.setState({ isLoading: false, isSubmitedSuccessful: true })
+        },
+          (err) => this.setState({ errors: err.response.data, isLoading: false, isSubmitedSuccessful: false })
+        );
     }
   }
   
@@ -137,6 +142,9 @@ class ClientForm extends React.Component {
           />
           <span className="note">This is mandatory</span>
         </div>
+        {this.state.isSubmitedSuccessful && 
+        <div>THANK YOU MESSAGE </div>
+        }
       </form>
     )
   }
