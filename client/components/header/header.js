@@ -14,7 +14,13 @@ class Header extends React.Component {
       <div className="user-info-line">
         <span>Hello, <em className="username">{user.username}</em>!</span>
         <a href="#" className="btn btn-primary" onClick={this.logout.bind(this)}>Sign out</a>
-      </div>
+      </div>;
+    const navTabs = 
+      <ul className="nav nav-tabs" role="tablist">
+          <li role="presentation" className="active"><a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment</a></li>
+          <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Orders</a></li>
+          <li role="presentation"><a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a></li>
+      </ul>
     return (
       <header className="header">
         {isAuth && userInfoLine}
@@ -23,6 +29,7 @@ class Header extends React.Component {
             <img src="/images/logo.png" height="23" width="136" alt="img description"></img>
             <span className="title">office</span>
           </a>
+          {isAuth && navTabs}
         </div>
       </header>
     )
@@ -38,6 +45,10 @@ function mapStateToProps(state) {
   return {
     auth: state.auth
   };
+}
+
+Header.contextTypes = {
+  router:React.PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, { logout })(Header);

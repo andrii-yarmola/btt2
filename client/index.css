@@ -168,7 +168,7 @@ form .btn-submit {
     left: 25px;
     top: 21px;
     position: absolute;
- }
+    background: url(../images/sprite.png) no-repeat; }
   form .btn-submit input {
     border: 0;
     padding-left: 65px;
@@ -186,7 +186,7 @@ form .search-btn {
   height: 32px;
   text-indent: -9999px;
   overflow: hidden;
- }
+  background: url(../images/sprite.png) no-repeat 0 -34px; }
 
 form label {
   display: inline-block;
@@ -624,7 +624,7 @@ a:focus {
       top: 5px;
       width: 7px;
       height: 12px;
- }
+      background: url(../images/sprite.png) no-repeat 0 -20px; }
     .ui-datepicker .ui-datepicker-prev.ui-state-disabled {
       opacity: 0; }
   .ui-datepicker .ui-datepicker-next {
@@ -643,7 +643,7 @@ a:focus {
       top: 5px;
       width: 7px;
       height: 12px;
- }
+      background: url(../images/sprite.png) no-repeat -20px -20px; }
     .ui-datepicker .ui-datepicker-next.ui-state-disabled {
       opacity: 0; }
   .ui-datepicker .ui-datepicker-title {

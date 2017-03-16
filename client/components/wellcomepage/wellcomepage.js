@@ -1,7 +1,4 @@
 import React from 'react';
-import '../../bootstrap.css';
-import '../../main.css';
-import '../../js.css';
 import ClientForm from '../clientRequestForm/form'
 
 class WellcomePage extends React.Component {

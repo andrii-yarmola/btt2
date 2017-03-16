@@ -63,7 +63,7 @@ class ClientForm extends React.Component {
   render() {
     const { errors } = this.state;
     return (
-      <form onSubmit={this.onSubmit} className="contact-form" encType="multipart/form-data" method="POST" action="/api/clientrequests">
+      <form onSubmit={this.onSubmit} className="contact-form">
         <FormRow
           value={this.state.name}
           onChange={this.onChange}
