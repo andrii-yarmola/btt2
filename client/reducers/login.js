@@ -1,4 +1,3 @@
-
 const defaultFieldState = {
   logged: false
 }

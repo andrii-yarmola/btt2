@@ -61,3 +61,9 @@ export function sendRequest(requestData) {
     return axios.post('/api/requests', data);
   }
 }
+
+export function getClients() {
+  return dispatch => {
+    return axios.get('/api/requests');
+  }
+}

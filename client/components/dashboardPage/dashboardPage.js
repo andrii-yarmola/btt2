@@ -3,6 +3,7 @@ import ClientsTable from '../adminDashboardComponents/clientsTable/table';
 
 class DashboardPage extends React.Component {
   render() {
+    const { getClients } = this.props;
     return (
       <main className="main">
         <div className="content">
@@ -16,7 +17,7 @@ class DashboardPage extends React.Component {
                  THIS IS orders TAB
             </div>
             <div role="tabpanel" className="tab-pane" id="clients">
-                <ClientsTable/>
+                <ClientsTable getClients={getClients}/>
             </div>
           </div>
         </div>
@@ -24,6 +25,5 @@ class DashboardPage extends React.Component {
     )
   }
 };
-
 
 export default DashboardPage;

@@ -17,7 +17,7 @@ class LoginPage extends React.Component {
   }
 };
 
-AdminLoginForm.propTypes = {
+LoginPage.propTypes = {
    login: React.PropTypes.func.isRequired
 }
 
