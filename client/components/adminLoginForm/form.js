@@ -47,7 +47,7 @@ class AdminForm extends React.Component {
   render() {
     const { errors } = this.state;
     return (
-      <form onSubmit={this.onSubmit} className="login-form" encType="multipart/form-data" method="POST" action="server/php/" >
+      <form onSubmit={this.onSubmit} className="login-form">
         <div className="row">
           <div className="col-xs-4 col-xs-offset-4">
             <h1>Login</h1>

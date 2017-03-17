@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../header/header';
-import '../../index.css';
 
 const Main = React.createClass({
   render() {

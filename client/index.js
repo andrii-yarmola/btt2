@@ -14,6 +14,15 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './store';
 
+// styles for admin page
+import './bootstrap-a.css';
+import './index.css';
+
+// styles and JS for client page
+// import './bootstrap.css';
+// import './main.css';
+// import './js.css';
+
 function isUserSignedIn(state) {
   // return state.auth.getIn(['user', 'isSignedIn']);
 }
