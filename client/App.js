@@ -6,8 +6,6 @@ import Main from './components/main/main'
 
 function mapStateToProps(state) {
   return {
-    commercyTasks: state.commercyTasks,
-    reactTasks: state.reactTasks
   }
 }
 

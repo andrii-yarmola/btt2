@@ -8,7 +8,7 @@ export default function validateInput(data) {
     if (Validator.isEmpty(data.name)) {
       errors.name = 'Something is wrong here...'
     }
-    if (Validator.isEmpty(data.email)) {
+    if (!Validator.isEmail(data.email)) {
       errors.email = 'Something is wrong here...'
     }
   }

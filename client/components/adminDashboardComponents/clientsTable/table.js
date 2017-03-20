@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import TableBody from './tableBody'
+import verifyAuthToken from '../../../utils/verifyAuthToken'
 
 class ClientsTable extends React.Component {
   constructor(props) {
@@ -30,12 +31,22 @@ class ClientsTable extends React.Component {
 
   componentWillMount() {
     this.setState({ isTableLoaded: false});
-    this.props.getClients(this.state).then(
-      (res) => {
-        this.setState({ isTableLoaded: true , tableData: res.data.data});
-      },
-      (err) => this.setState({ errors: err.response.data })
-    );
+    verifyAuthToken()
+    .then( 
+      res => this.props.getClients(this.state))
+    .then(
+      res => this.setState({ isTableLoaded: true , tableData: res.data.data}),
+      err => this.setState({ errors: err.response })
+    )
+  }
+  
+    componentWillMount() {
+    this.setState({ isTableLoaded: false});
+    this.props.getClients(this.state)
+    .then(
+      res => this.setState({ isTableLoaded: true , tableData: res.data.data}),
+      err => this.setState({ errors: err.response })
+    )
   }
 
   render() {

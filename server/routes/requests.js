@@ -1,11 +1,17 @@
 import express from 'express';
-import commonValidations from '../shared/validations/request';
 import isObjEmpty from 'lodash/isEmpty';
+import moment from 'moment';
+import multer from 'multer';
+
+import commonValidations from '../shared/validations/request';
+import authenticate from '../middlewares/authenticate'
 
 import Request from '../models/request';
 import Requests from '../collections/requests';
 
-import multer from 'multer';
+
+moment().format();
+
 const upload = multer({ 
   dest: 'uploads/',
   limits: {
@@ -35,11 +41,17 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
   }
 });
 
-router.get('/', (req, res) => {
+router.get('/', authenticate, (req, res) => {
   Requests.forge()
     .fetch()
     .then(function (collection) {
-      res.json({error: false, data: collection.toJSON()});
+      const collectionFormatted = collection.toJSON().map(
+        (row) => {
+          row.created_at = moment(row.created_at).format("MMM DD YYYY");
+          return row
+        }
+      );
+      res.json({error: false, data: collectionFormatted});
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});

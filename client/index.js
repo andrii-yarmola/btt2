@@ -9,6 +9,8 @@ import AdminMain from './components/adminMain/adminMain';
 import App from './App';
 import verifyAuthToken from './utils/verifyAuthToken';
 
+import requireAuth from './utils/requireAuth'
+
 // import react router deps
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
@@ -23,21 +25,6 @@ import './index.css';
 // import './main.css';
 // import './js.css';
 
-function isUserSignedIn(state) {
-  // return state.auth.getIn(['user', 'isSignedIn']);
-}
-
-function requireAuth(nextState, transition, cb) {
-  setTimeout(() => {
-    if (!isUserSignedIn(store.getState())) {
-      transition('/');
-    }
-    cb();
-  }, 0);
-}
-
-verifyAuthToken();
-
 const router = (
   <Provider store={store}>
     <Router history={history}>
@@ -47,11 +34,16 @@ const router = (
           <IndexRoute component={LoginPage}></IndexRoute>
           <Route path="login" component={LoginPage}></Route>
           <Route path="signup" component={SignupPage}></Route>
-          <Route path="dashboard" component={DashboardPage}></Route>
+          <Route path="dashboard" component={requireAuth(DashboardPage)}></Route>
         </Route>
       </Route>
     </Router>
   </Provider>
 )
 
-render(router, document.getElementById('app'));
+verifyAuthToken().then(
+  result => {
+    render(router, document.getElementById('app'));
+  }
+);
+

@@ -10,6 +10,7 @@ class Header extends React.Component {
   
   render() {
     const { isAuth, user} = this.props.auth;
+    const isDashboard = this.props.route === '/server/dashboard';
     const userInfoLine = 
       <div className="user-info-line">
         <span>Hello, <em className="username">{user.username}</em>!</span>
@@ -29,7 +30,7 @@ class Header extends React.Component {
             <img src="/images/logo.png" height="23" width="136" alt="img description"></img>
             <span className="title">office</span>
           </a>
-          {isAuth && navTabs}
+          {isDashboard && navTabs}
         </div>
       </header>
     )
@@ -43,7 +44,8 @@ Header.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    route: state.routing.locationBeforeTransitions.pathname
   };
 }
 
