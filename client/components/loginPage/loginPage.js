@@ -17,8 +17,4 @@ class LoginPage extends React.Component {
   }
 };
 
-LoginPage.propTypes = {
-   login: React.PropTypes.func.isRequired
-}
-
 export default LoginPage;

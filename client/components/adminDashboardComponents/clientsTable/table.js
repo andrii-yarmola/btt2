@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import TableBody from './tableBody'
 
 class ClientsTable extends React.Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class ClientsTable extends React.Component {
     this.state = {
       search: '',
       isTableLoaded: false,
-      errors: {}
+      errors: {},
+      tableData: []
     };
     
     this.onChange = this.onChange.bind(this);
@@ -28,10 +30,9 @@ class ClientsTable extends React.Component {
 
   componentWillMount() {
     this.setState({ isTableLoaded: false});
-    this.props.getClients().then(
+    this.props.getClients(this.state).then(
       (res) => {
-        this.setState({ isTableLoaded: true });
-        // response treatment
+        this.setState({ isTableLoaded: true , tableData: res.data.data});
       },
       (err) => this.setState({ errors: err.response.data })
     );
@@ -42,13 +43,13 @@ class ClientsTable extends React.Component {
     return (
       <form className="clients-form" >
         <div className="container container-narrow">
-              <div className="search-holder">
-                  <h1>Clients</h1>
-                  <div className="input-holder">
-                      <input type="text" className="form-control search-input" placeholder="Search for client name ..."/>
-                      <input type="submit" className="search-btn" value="Search"/>
-                  </div>
-              </div>
+          <div className="search-holder">
+            <h1>Clients</h1>
+            <div className="input-holder">
+              <input type="text" className="form-control search-input" placeholder="Search for client name ..."/>
+              <input type="submit" className="search-btn" value="Search"/>
+            </div>
+          </div>
         </div>
         <div className="table-holder table-responsive">
           <table className="table clients-table">
@@ -68,24 +69,7 @@ class ClientsTable extends React.Component {
                 <th className="cell06">Type</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td className="cell01">1</td>
-                <td className="cell02"><a href="#">Aqorn</a></td>
-                <td className="cell03"><a href="mailto:adam@aqorn.com">adam@aqorn.com</a></td>
-                <td className="cell04"><a href="callto:+010012340056700">+01 00 12340056700</a></td>
-                <td className="cell05">Feb 01 2016</td>
-                <td className="cell06">Request</td>
-              </tr>
-              <tr>
-                <td className="cell01">2</td>
-                <td className="cell02"><a href="#">Batelco</a></td>
-                <td className="cell03"><a href="mailto:long.name.batelco.client.email@batelco.com">long.name.batelco.client.email@batelco.com</a></td>
-                <td className="cell04"><a href="callto:+010012340056700">+01 00 12340056700</a></td>
-                <td className="cell05">Feb 04 2016</td>
-                <td className="cell06">Schedule</td>
-              </tr>
-            </tbody>
+            <TableBody tableData={this.state.tableData}/>
           </table>
         </div>
         <div className="pagination-block">

@@ -10,8 +10,11 @@ export const setCurrentUser = (user) => ({
   user 
 });
 
-
-// async actions
+export const SET_CURRENT_CLIENTS_TABLE = 'SET_CURRENT_CLIENTS_TABLE';
+export const setCurrentClientTable = (rows) => ({
+  type: SET_CURRENT_CLIENTS_TABLE,
+  rows 
+});
 
 export function logout() {
   return dispatch => {
@@ -20,6 +23,8 @@ export function logout() {
     dispatch(setCurrentUser({}));
   }
 }
+
+// async actions
 
 export function userSignupRequest(userData) {
   return dispatch => {
@@ -57,13 +62,12 @@ export function sendRequest(requestData) {
        (file)=> { data.append('uploads', file) }
      );
 
-    
     return axios.post('/api/requests', data);
   }
 }
 
-export function getClients() {
+export function getClients(data) {
   return dispatch => {
-    return axios.get('/api/requests');
+    return axios.get('/api/requests', data);
   }
 }

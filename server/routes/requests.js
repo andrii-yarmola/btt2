@@ -3,6 +3,7 @@ import commonValidations from '../shared/validations/request';
 import isObjEmpty from 'lodash/isEmpty';
 
 import Request from '../models/request';
+import Requests from '../collections/requests';
 
 import multer from 'multer';
 const upload = multer({ 
@@ -32,6 +33,17 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
   } else {
     res.status(400).json(errors);
   }
+});
+
+router.get('/', (req, res) => {
+  Requests.forge()
+    .fetch()
+    .then(function (collection) {
+      res.json({error: false, data: collection.toJSON()});
+    })
+    .catch(function (err) {
+      res.status(500).json({error: true, data: {message: err.message}});
+  });
 });
 
 export default router;
