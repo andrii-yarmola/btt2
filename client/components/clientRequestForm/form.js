@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import validateInput from '../../../server/shared/validations/request';
 import FormRow from '../common/FormRow';
 import Dropzone from 'react-dropzone';
+import Phone from 'react-phone-number-input';
+import { parse, format, asYouType } from 'libphonenumber-js';
 
 class ClientForm extends React.Component {
   constructor(props) {
@@ -82,14 +84,12 @@ class ClientForm extends React.Component {
           error={errors.email}
           formRequired={this.props.type === 'request-proposal'}
         />
-        <FormRow
-          value={this.state.phone}
-          onChange={this.onChange}
-          name="phone"
-          type="text"
+        <Phone
+          className={classnames("form-row", { 'form-required' : this.props.type === 'request-call' })}
           placeholder="Your #"
-          error={errors.phone}
-          formRequired={this.props.type === 'request-call'}
+          value={ this.state.phone }
+          onChange={ value => this.setState({ 'phone': new asYouType().input(value) }) }
+          showCountrySelect ={ false }
         />
         {this.props.type === 'request-call' && 
           <div className="form-row form-required">

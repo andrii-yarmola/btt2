@@ -40,6 +40,10 @@ export default {
         loader: 'file-loader'
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /\.(png|jpg|jpeg|gif)$/, 
         loader: 'url-loader?limit=8192' 
       }
