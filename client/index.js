@@ -17,13 +17,13 @@ import { Provider } from 'react-redux';
 import store, { history } from './store';
 
 // styles for admin page
-// import './bootstrap-a.css';
-// import './index.css';
+import './bootstrap-a.css';
+import './index.css';
 
 // styles and JS for client page
-import './bootstrap.css';
-import './main.css';
-import './js.css';
+// import './bootstrap.css';
+// import './main.css';
+// import './js.css';
 
 const router = (
   <Provider store={store}>

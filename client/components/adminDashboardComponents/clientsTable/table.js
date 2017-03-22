@@ -9,12 +9,15 @@ class ClientsTable extends React.Component {
     this.state = {
       search: '',
       isTableLoaded: false,
-      errors: {},
-      tableData: []
+      tableData: [],
+      activeFiler: 'name', // name , email, phone, date, type
+      filerDirectionUp: true // desc : true; asc : false
     };
     
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.loadTable = this.loadTable.bind(this);
+    this.filterChanged = this.filterChanged.bind(this);
   }
   
   onChange(e) {
@@ -28,19 +31,17 @@ class ClientsTable extends React.Component {
       console.log('submited');
     }
   }
-
-  componentWillMount() {
-    this.setState({ isTableLoaded: false});
-    verifyAuthToken()
-    .then( 
-      res => this.props.getClients(this.state))
-    .then(
-      res => this.setState({ isTableLoaded: true , tableData: res.data.data}),
-      err => this.setState({ errors: err.response })
-    )
+  
+  filterChanged(e) {
+    const incFilter = e.target.dataset.filter;
+    const { filerDirectionUp } = this.state;
+    if (incFilter === this.state.activeFiler) {
+      this.setState({ filerDirectionUp: !filerDirectionUp });
+    } else 
+    this.setState({ filerDirectionUp: true, activeFiler: incFilter });
   }
   
-    componentWillMount() {
+  loadTable() {
     this.setState({ isTableLoaded: false});
     this.props.getClients(this.state)
     .then(
@@ -49,8 +50,11 @@ class ClientsTable extends React.Component {
     )
   }
 
+  componentWillMount() {
+    this.loadTable();
+  }
+
   render() {
-    const { errors } = this.state;
     return (
       <form className="clients-form" >
         <div className="container container-narrow">
@@ -67,17 +71,46 @@ class ClientsTable extends React.Component {
             <thead>
               <tr>
                 <th className="cell01">...</th>
-                <th className="cell02">Client Name
-                  <a href="#" className="sort-desc active">&#9650;</a>
-                  <a href="#" className="sort-asc">&#9660;</a>
+                <th
+                  className={classnames("cell02", {"active" : this.state.activeFiler==="name"})}
+                  onClick={this.filterChanged}
+                  data-filter="name">
+                  Client Name
+                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="name"})}>&#9650;</span>
+                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="name"})}>&#9660;</span>
                 </th>
-                <th className="cell03 active">Email 
-                  <a href="#" className="sort-desc">&#9650;</a>
-                  <a href="#" className="sort-asc active">&#9660;</a>
+                <th
+                  className={classnames("cell03", {"active" : this.state.activeFiler==="email"})}
+                  onClick={this.filterChanged}
+                  data-filter="email">
+                  Email 
+                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="email"})}>&#9650;</span>
+                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="email"})}>&#9660;</span>
                 </th>
-                <th className="cell04">Phone</th>
-                <th className="cell05">Date added</th>
-                <th className="cell06">Type</th>
+                <th
+                  className={classnames("cell04", {"active" : this.state.activeFiler==="phone"})}
+                  onClick={this.filterChanged}
+                  data-filter="phone">
+                  Phone
+                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="phone"})}>&#9650;</span>
+                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="phone"})}>&#9660;</span>
+                </th>
+                <th
+                  className={classnames("cell05", {"active" : this.state.activeFiler==="date"})}
+                  onClick={this.filterChanged}
+                  data-filter="date">
+                  Date added
+                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="date"})}>&#9650;</span>
+                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="date"})}>&#9660;</span>
+                </th>
+                 <th
+                  className={classnames("cell06", {"active" : this.state.activeFiler==="type"})}
+                  onClick={this.filterChanged}
+                  data-filter="type">
+                  Type
+                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="type"})}>&#9650;</span>
+                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="type"})}>&#9660;</span>
+                </th>
               </tr>
             </thead>
             <TableBody tableData={this.state.tableData}/>
