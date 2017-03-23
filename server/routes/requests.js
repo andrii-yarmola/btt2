@@ -42,6 +42,7 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
 });
 
 router.get('/', authenticate, (req, res) => {
+  console.log(req.query);
   Requests.forge()
     .fetch()
     .then(function (collection) {

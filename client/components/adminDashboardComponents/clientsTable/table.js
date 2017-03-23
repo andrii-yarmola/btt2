@@ -1,7 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import TableBody from './tableBody'
-import verifyAuthToken from '../../../utils/verifyAuthToken'
+import TableBody from './tableBody';
+import TableHead from './tableHead';
+import verifyAuthToken from '../../../utils/verifyAuthToken';
+import Pagination from 'rc-pagination';
+import Select from 'rc-select';
+import locale from './locale';
 
 class ClientsTable extends React.Component {
   constructor(props) {
@@ -10,35 +14,43 @@ class ClientsTable extends React.Component {
       search: '',
       isTableLoaded: false,
       tableData: [],
+      pagesCount: 100,
+      pageSize: 10,
+      currentPage: 1,
       activeFiler: 'name', // name , email, phone, date, type
-      filerDirectionUp: true // desc : true; asc : false
+      filerDirectionUp: true, // desc : true; asc : false
+      search: ''
     };
     
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.loadTable = this.loadTable.bind(this);
     this.filterChanged = this.filterChanged.bind(this);
+    this.paginationOnChange = this.paginationOnChange.bind(this);
+    this.onShowSizeChange = this.onShowSizeChange.bind(this);
   }
   
   onChange(e) {
-    this.setState({[e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value }, this.loadTable);
   }
   
-  onSubmit(e) {
-    e.preventDefault();
-    
-    if (this.isValid()) {
-      console.log('submited');
-    }
+  paginationOnChange(current, pageSize){
+    if (current !== this.state.currentPage) {
+      this.setState({ currentPage: current }, this.loadTable);
+    } 
+  }
+  
+  onShowSizeChange(current, pageSize){
+    if (current !== this.state.currentPage || pageSize !== this.state.pageSize) {
+      this.setState({ currentPage: current, pageSize: pageSize }, this.loadTable);
+    } 
   }
   
   filterChanged(e) {
     const incFilter = e.target.dataset.filter;
     const { filerDirectionUp } = this.state;
     if (incFilter === this.state.activeFiler) {
-      this.setState({ filerDirectionUp: !filerDirectionUp });
+      this.setState({ filerDirectionUp: !filerDirectionUp }, this.loadTable);
     } else 
-    this.setState({ filerDirectionUp: true, activeFiler: incFilter });
+    this.setState({ filerDirectionUp: true, activeFiler: incFilter }, this.loadTable);
   }
   
   loadTable() {
@@ -61,91 +73,38 @@ class ClientsTable extends React.Component {
           <div className="search-holder">
             <h1>Clients</h1>
             <div className="input-holder">
-              <input type="text" className="form-control search-input" placeholder="Search for client name ..."/>
-              <input type="submit" className="search-btn" value="Search"/>
+              <input 
+                type="text"
+                className="form-control search-input"
+                placeholder="Search for client name ..."
+                onChange={this.onChange}
+                name="search"
+              />
             </div>
           </div>
         </div>
         <div className="table-holder table-responsive">
           <table className="table clients-table">
-            <thead>
-              <tr>
-                <th className="cell01">...</th>
-                <th
-                  className={classnames("cell02", {"active" : this.state.activeFiler==="name"})}
-                  onClick={this.filterChanged}
-                  data-filter="name">
-                  Client Name
-                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="name"})}>&#9650;</span>
-                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="name"})}>&#9660;</span>
-                </th>
-                <th
-                  className={classnames("cell03", {"active" : this.state.activeFiler==="email"})}
-                  onClick={this.filterChanged}
-                  data-filter="email">
-                  Email 
-                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="email"})}>&#9650;</span>
-                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="email"})}>&#9660;</span>
-                </th>
-                <th
-                  className={classnames("cell04", {"active" : this.state.activeFiler==="phone"})}
-                  onClick={this.filterChanged}
-                  data-filter="phone">
-                  Phone
-                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="phone"})}>&#9650;</span>
-                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="phone"})}>&#9660;</span>
-                </th>
-                <th
-                  className={classnames("cell05", {"active" : this.state.activeFiler==="date"})}
-                  onClick={this.filterChanged}
-                  data-filter="date">
-                  Date added
-                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="date"})}>&#9650;</span>
-                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="date"})}>&#9660;</span>
-                </th>
-                 <th
-                  className={classnames("cell06", {"active" : this.state.activeFiler==="type"})}
-                  onClick={this.filterChanged}
-                  data-filter="type">
-                  Type
-                  <span className={classnames("sort-desc", {"active" : this.state.filerDirectionUp && this.state.activeFiler==="type"})}>&#9650;</span>
-                  <span className={classnames("sort-asc", {"active" : !this.state.filerDirectionUp && this.state.activeFiler==="type"})}>&#9660;</span>
-                </th>
-              </tr>
-            </thead>
+            <TableHead 
+              activeFiler={this.state.activeFiler}
+              filterChanged={this.filterChanged}
+              filerDirectionUp={this.state.filerDirectionUp}
+            />
             <TableBody tableData={this.state.tableData}/>
           </table>
         </div>
         <div className="pagination-block">
             <div className="container container-narrow">
-              <div className="entries-block">
-                <span>Show</span>
-                <span className="select-holder">
-                  <select className="count">
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                  </select>
-                </span>
-              </div>
-                <ul className="pagination">
-                  <li>
-                    <a className="nav-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&lt; Previous </span>
-                    </a>
-                  </li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li className="active"><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><span>...</span></li>
-                  <li><a href="#">21</a></li>
-                  <li>
-                    <a className="nav-link link-next" href="#" aria-label="Next">
-                      <span aria-hidden="true">Next &gt;</span>
-                    </a>
-                  </li>
-                </ul>
+              <Pagination 
+                onChange={this.paginationOnChange}
+                onShowSizeChange={this.onShowSizeChange}
+                selectComponentClass={Select}
+                className="pagination"
+                showSizeChanger
+                pageSizeOptions={['10', '15', '20']}
+                locale={locale}
+                total={this.state.pagesCount}
+              />
             </div>
         </div>
       </form>

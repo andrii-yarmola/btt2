@@ -66,8 +66,8 @@ export function sendRequest(requestData) {
   }
 }
 
-export function getClients(data) {
+export function getClients(requestData) {
   return dispatch => {
-    return axios.get('/api/requests', data);
+    return axios.get('/api/requests', { params: requestData });
   }
 }

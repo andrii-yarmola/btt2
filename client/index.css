@@ -881,4 +881,37 @@ a:focus {
       font-size: 14px;
       font-family: "AvenirMedium", Helvetica, Arial, sans-serif;
       margin: 0 0 1px 20px; }
+      
+.rc-pagination-options{
+  float: left;
+}
+
+.rc-pagination-next a,
+.rc-pagination-prev a{
+  position: relative;
+  width: auto !important;
+}
+
+.rc-pagination-item-active a{
+  background: green !important;
+  color: white !important;
+}
+
+.rc-pagination-jump-next a,
+.rc-pagination-jump-prev a{
+  position: relative;
+}
+
+.rc-pagination-jump-next a:after,
+.rc-pagination-jump-prev a:after{
+  content:'...';
+}
+
+.rc-pagination-next a:after{
+  content:'Next';
+}
+
+.rc-pagination-prev a:after{
+  content:'Previous';
+}
 /*# sourceMappingURL=main.css.map */
