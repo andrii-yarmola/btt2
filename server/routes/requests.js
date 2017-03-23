@@ -42,8 +42,15 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
 });
 
 router.get('/', authenticate, (req, res) => {
-  console.log(req.query);
+  const { activeFilter, search, pageSize, currentPage, filterDirection } = req.query;
   Requests.forge()
+    .orderBy(activeFilter, filterDirection)
+    .query(function(qb) {
+      qb
+        .where('name', '~*', search)
+        .orWhere('email', '~*', search)
+        .orWhere('phone', '~*', search);
+    })
     .fetch()
     .then(function (collection) {
       const collectionFormatted = collection.toJSON().map(

@@ -17,9 +17,8 @@ class ClientsTable extends React.Component {
       pagesCount: 100,
       pageSize: 10,
       currentPage: 1,
-      activeFiler: 'name', // name , email, phone, date, type
-      filerDirectionUp: true, // desc : true; asc : false
-      search: ''
+      activeFilter: 'name', // name , email, phone, date, type
+      filterDirectionUp: true, // desc : true; asc : false
     };
     
     this.onChange = this.onChange.bind(this);
@@ -46,11 +45,11 @@ class ClientsTable extends React.Component {
   
   filterChanged(e) {
     const incFilter = e.target.dataset.filter;
-    const { filerDirectionUp } = this.state;
-    if (incFilter === this.state.activeFiler) {
-      this.setState({ filerDirectionUp: !filerDirectionUp }, this.loadTable);
+    const { filterDirectionUp } = this.state;
+    if (incFilter === this.state.activeFilter) {
+      this.setState({ filterDirectionUp: !filterDirectionUp }, this.loadTable);
     } else 
-    this.setState({ filerDirectionUp: true, activeFiler: incFilter }, this.loadTable);
+    this.setState({ filterDirectionUp: true, activeFilter: incFilter }, this.loadTable);
   }
   
   loadTable() {
@@ -86,9 +85,9 @@ class ClientsTable extends React.Component {
         <div className="table-holder table-responsive">
           <table className="table clients-table">
             <TableHead 
-              activeFiler={this.state.activeFiler}
+              activeFilter={this.state.activeFilter}
               filterChanged={this.filterChanged}
-              filerDirectionUp={this.state.filerDirectionUp}
+              filterDirectionUp={this.state.filterDirectionUp}
             />
             <TableBody tableData={this.state.tableData}/>
           </table>

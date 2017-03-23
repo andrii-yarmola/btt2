@@ -66,7 +66,10 @@ export function sendRequest(requestData) {
   }
 }
 
-export function getClients(requestData) {
+export function getClients(data) {
+  const {search, pageSize, currentPage, activeFilter, filterDirectionUp} = data;
+  const filterDirection = filterDirectionUp ? 'ASC' : 'DESC';
+  const requestData = { search, pageSize, currentPage, activeFilter, filterDirection }
   return dispatch => {
     return axios.get('/api/requests', { params: requestData });
   }
