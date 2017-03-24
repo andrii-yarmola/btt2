@@ -1,5 +1,9 @@
- // page init
-jQuery(function(){
+// page init
+jQuery(window).load(function(){
+	setTimeout(init, 100)
+});
+
+function init() {
 	initCustomForms();
 	// initFileUpload();
 	initDatepicker();
@@ -16,7 +20,7 @@ jQuery(function(){
 	initTextarea();
 	initCustomForms();
 	initDatepickerA();
-});
+}
 
 // init layout fix
 function initLayoutFix(){

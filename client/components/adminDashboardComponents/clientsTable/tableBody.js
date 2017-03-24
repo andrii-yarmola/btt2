@@ -2,13 +2,14 @@ import React from 'react';
 import TableRow from './tableRow';
 import classnames from 'classnames';
 
-const TableBody = ({tableData, isTableLoaded}) => {
+const TableBody = ({ tableData, isTableLoaded, startNumber }) => {
     return (
       <tbody className={classnames({"loading" : !isTableLoaded})}>
         {tableData.map((row, i) => 
           <TableRow 
             key={row.id}
-            i={i+1}
+            id={row.id}
+            i={startNumber+i+1}
             name={row.name}
             email={row.email}
             phone={row.phone}

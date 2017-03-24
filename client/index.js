@@ -7,9 +7,12 @@ import WellcomePage from './components/wellcomePage/wellcomePage';
 import DashboardPage from './components/dashboardPage/dashboardPage';
 import AdminMain from './components/adminMain/adminMain';
 import App from './App';
+import ClientDetails from './components/clientDetails/clientDetails';
+
 import verifyAuthToken from './utils/verifyAuthToken';
 
-import requireAuth from './utils/requireAuth'
+import requireAuth from './utils/requireAuth';
+import requireUnAuth from './utils/requireUnAuth';
 
 // import react router deps
 import { Router, Route, IndexRoute } from 'react-router';
@@ -32,9 +35,10 @@ const router = (
         <IndexRoute component={WellcomePage}></IndexRoute>
         <Route path="server" component={AdminMain}>
           <IndexRoute component={LoginPage}></IndexRoute>
-          <Route path="login" component={LoginPage}></Route>
-          <Route path="signup" component={SignupPage}></Route>
+          <Route path="login" component={requireUnAuth(LoginPage)}></Route>
+          <Route path="login" component={requireUnAuth(SignupPage)}></Route>
           <Route path="dashboard" component={requireAuth(DashboardPage)}></Route>
+          <Route path="clients/:id-:name" component={requireAuth(ClientDetails)}></Route>
         </Route>
       </Route>
     </Router>

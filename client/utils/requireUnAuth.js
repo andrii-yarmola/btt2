@@ -4,22 +4,20 @@ import { connect } from 'react-redux';
 export default function(ComposedComponent) {
   class Authenticate extends React.Component {
     componentWillMount() {
-      if (!this.props.isAuth) {
-        this.context.router.push('/server/login');
+      if (this.props.isAuth) {
+        this.context.router.push('/server/dashboard');
       }
     }
     
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuth) {
-        this.context.router.push('/server/login');
+        this.context.router.push('/server/dashboard');
       }
     }
     
     render() {
       return (
-        <div>
-          { this.props.isAuth && <ComposedComponent {...this.props} />}
-        </div>
+        <ComposedComponent {...this.props} />
       );
     }
   }

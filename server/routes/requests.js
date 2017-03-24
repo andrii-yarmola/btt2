@@ -69,4 +69,21 @@ router.get('/', authenticate, (req, res) => {
   });
 });
 
+router.get('/:id', authenticate, (req, res) => {
+  Request.forge({id: req.params.id})
+  .fetch()
+  .then(
+  (request) => {
+    if (!request) {
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      res.json({error: false, data: request.toJSON()});
+    }
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  });
+});
+
 export default router;

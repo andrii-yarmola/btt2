@@ -19,6 +19,7 @@ class ClientsTable extends React.Component {
       currentPage: 1,
       activeFilter: 'name', // name , email, phone, date, type
       filterDirectionUp: true, // desc : true; asc : false
+      errors: ''
     };
     
     this.onChange = this.onChange.bind(this);
@@ -57,7 +58,7 @@ class ClientsTable extends React.Component {
     this.props.getClients(this.state)
     .then(
       res => this.setState({ isTableLoaded: true , tableData: res.data.data, pagesCount: res.data.count}),
-      err => this.setState({ errors: err.response })
+      err => this.setState({ errors: res.errors})
     )
   }
 
@@ -92,6 +93,7 @@ class ClientsTable extends React.Component {
             <TableBody
               tableData={this.state.tableData}
               isTableLoaded={this.state.isTableLoaded}
+              startNumber={this.state.pageSize * (this.state.currentPage - 1)}
             />
           </table>
           {(!this.state.tableData.length) && <div className='noFound'> No clients found ... </div>}

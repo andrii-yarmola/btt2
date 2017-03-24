@@ -74,3 +74,9 @@ export function getClients(data) {
     return axios.get('/api/requests', { params: requestData });
   }
 }
+
+export function getClient(id) {
+  return dispatch => {
+    return axios.get(`/api/requests/${id}`);
+  }
+}
