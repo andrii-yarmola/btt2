@@ -914,4 +914,18 @@ a:focus {
 .rc-pagination-prev a:after{
   content:'Previous';
 }
+
+.pagination.hidden li{
+  display: none;
+}
+
+.noFound{
+  padding: 100px;
+  text-align: center;
+}
+
+tbody.loading{
+  background: red;
+  transition: background 0.3s;
+}
 /*# sourceMappingURL=main.css.map */

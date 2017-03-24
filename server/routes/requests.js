@@ -49,17 +49,20 @@ router.get('/', authenticate, (req, res) => {
       qb
         .where('name', '~*', search)
         .orWhere('email', '~*', search)
-        .orWhere('phone', '~*', search);
+        .orWhere('phone', '~*', search)
     })
     .fetch()
     .then(function (collection) {
-      const collectionFormatted = collection.toJSON().map(
+      const count = collection.length;
+      const newCollection = collection.toJSON()
+        .slice(pageSize*(currentPage - 1), pageSize*currentPage);
+      const collectionFormatted = newCollection.map(
         (row) => {
           row.created_at = moment(row.created_at).format("MMM DD YYYY");
           return row
         }
       );
-      res.json({error: false, data: collectionFormatted});
+      res.json({error: false, data: collectionFormatted, count: Math.ceil(count/pageSize)});
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});

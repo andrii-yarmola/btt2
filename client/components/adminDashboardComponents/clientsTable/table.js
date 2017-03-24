@@ -14,7 +14,7 @@ class ClientsTable extends React.Component {
       search: '',
       isTableLoaded: false,
       tableData: [],
-      pagesCount: 100,
+      pagesCount: 0,
       pageSize: 10,
       currentPage: 1,
       activeFilter: 'name', // name , email, phone, date, type
@@ -56,7 +56,7 @@ class ClientsTable extends React.Component {
     this.setState({ isTableLoaded: false});
     this.props.getClients(this.state)
     .then(
-      res => this.setState({ isTableLoaded: true , tableData: res.data.data}),
+      res => this.setState({ isTableLoaded: true , tableData: res.data.data, pagesCount: res.data.count}),
       err => this.setState({ errors: err.response })
     )
   }
@@ -89,8 +89,12 @@ class ClientsTable extends React.Component {
               filterChanged={this.filterChanged}
               filterDirectionUp={this.state.filterDirectionUp}
             />
-            <TableBody tableData={this.state.tableData}/>
+            <TableBody
+              tableData={this.state.tableData}
+              isTableLoaded={this.state.isTableLoaded}
+            />
           </table>
+          {(!this.state.tableData.length) && <div className='noFound'> No clients found ... </div>}
         </div>
         <div className="pagination-block">
             <div className="container container-narrow">
@@ -98,11 +102,11 @@ class ClientsTable extends React.Component {
                 onChange={this.paginationOnChange}
                 onShowSizeChange={this.onShowSizeChange}
                 selectComponentClass={Select}
-                className="pagination"
+                className={classnames("pagination", {"hidden" : this.state.pagesCount<2})}
                 showSizeChanger
                 pageSizeOptions={['10', '15', '20']}
                 locale={locale}
-                total={this.state.pagesCount}
+                total={this.state.pagesCount * this.state.pageSize}
               />
             </div>
         </div>

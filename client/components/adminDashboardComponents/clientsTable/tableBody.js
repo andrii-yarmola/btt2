@@ -1,9 +1,10 @@
 import React from 'react';
 import TableRow from './tableRow';
+import classnames from 'classnames';
 
-const TableBody = ({tableData}) => {
+const TableBody = ({tableData, isTableLoaded}) => {
     return (
-      <tbody>
+      <tbody className={classnames({"loading" : !isTableLoaded})}>
         {tableData.map((row, i) => 
           <TableRow 
             key={row.id}
