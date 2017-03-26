@@ -26,12 +26,26 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
   if ( isValid ) {
     const { type, name, phone, time, date, email, message } = req.body;
 
-    const file1 = req.files[0] ? req.files[0].filename : '';
-    const file2 = req.files[1] ? req.files[1].filename : '';
-    const file3 = req.files[2] ? req.files[2].filename : '';
+    let filePath1, filePath2, filePath3,
+        fileName1, fileName2, fileName3;
+    if (req.files[0]) {
+      filePath1 = req.files[0].filename;
+      fileName1 = req.files[0].originalname;
+    }
+    if (req.files[1]) {
+      filePath2 = req.files[1].filename;
+      fileName2 = req.files[1].originalname;
+    }
+    if (req.files[2]) {
+      console.log(123)
+      filePath3 = req.files[2].filename;
+      fileName3 = req.files[2].originalname;
+    }
 
     Request.forge({
-      type, name, phone, time, date, email, message, file1, file2, file3
+      type, name, phone, time, date, email, message,
+      filePath1, filePath2, filePath3,
+      fileName1, fileName2, fileName3
     }, { hasTimestamps: true }).save()
       .then(user => res.json({ success: true }))
       .catch(err => res.status(500).json({ error: err }));
@@ -78,7 +92,12 @@ router.get('/:id', authenticate, (req, res) => {
       res.status(404).json({error: true, data: {}});
     }
     else {
-      res.json({error: false, data: request.toJSON()});
+      const clientInfo = request.toJSON();
+      clientInfo.date = clientInfo.date ? moment(clientInfo.date).format("DD MMM YYYY") : '';
+      clientInfo.time = clientInfo.time ? clientInfo.time.toLowerCase() : '';
+      clientInfo.type = clientInfo.type === 'request-proposal' ? 'request' : 'schedule';
+      clientInfo.created_at = clientInfo.created_at ? moment(clientInfo.created_at).format("DD MMM YYYY") : '';
+      res.json({error: false, data: clientInfo});
     }
   })
   .catch(function (err) {

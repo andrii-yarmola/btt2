@@ -12,9 +12,12 @@ class ClientDetails extends React.Component {
       type:'',
       added:'',
       message:'',
-      file1:'',
-      file2:'',
-      file3:''
+      filePath1:'',
+      filePath2:'',
+      filePath3:'',
+      fileName1:'',
+      fileName2:'',
+      fileName3:''
     };
   }
   
@@ -28,11 +31,14 @@ class ClientDetails extends React.Component {
         time: res.data.data.time,
         date: res.data.data.date,
         type: res.data.data.type,
-        added: res.data.data.added,
+        created_at: res.data.data.created_at,
         message: res.data.data.message,
-        file1: res.data.data.file1,
-        file2: res.data.data.file2,
-        file3: res.data.data.file3
+        filePath1: res.data.data.filePath1,
+        filePath2: res.data.data.filePath2,
+        filePath3: res.data.data.filePath3,
+        fileName1: res.data.data.fileName1,
+        fileName2: res.data.data.fileName2,
+        fileName3: res.data.data.fileName3
       }),
       err => console.log('err')
     )
@@ -60,43 +66,56 @@ class ClientDetails extends React.Component {
                   <div className="form-row">
                     <input type="tel" className="form-control" value={this.state.phone} readOnly/>
                   </div>
-                  <div className="form-row form-row-static">
-                    <label>Meeting scheduled on</label>
-                    <span className="form-control-static">16 Nov 2016</span>
-                    <span className="form-control-static">{this.state.date}</span>
-                    <label>at</label>
-                    <span className="form-control-static">5 : 30 pm EST</span>
-                  </div>
+                  {this.state.date && this.state.time && 
+                    <div className="form-row form-row-static">
+                      <label>Meeting scheduled on</label>
+                      <span className="form-control-static">{this.state.date}</span>
+                      <label>at</label>
+                      <span className="form-control-static">{this.state.time} EST</span>
+                    </div>
+                  }
                   <div className="form-row form-row-static">
                     <label>Type of contact</label>
-                    <span className="form-control-static"> request</span>
+                    <span className="form-control-static">{this.state.type}</span>
                   </div>
                   <div className="form-row form-row-static">
                     <label>Added on</label>
-                    <span className="form-control-static form-control-static-gray">11 Aug 2016</span>
+                    <span className="form-control-static form-control-static-gray">{this.state.created_at}</span>
                   </div>
                 </div>
               </div>
-              <div className="form-row form-row-static form-row-text">
-                <label>Message from the client:</label>
-                <div className="form-text">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+              {this.state.message &&
+                <div className="form-row form-row-static form-row-text">
+                  <label>Message from the client:</label>
+                  <div className="form-text">
+                    <p>{this.state.message}</p>
+                  </div>
                 </div>
-              </div>
+              }
             </form>
           </div>
         </div>
         <div className="download-block">
           <div className="container container-narrow">
             <ul className="download-list">
-              <li>
-                <span>Project_brief_final_EN.pdf</span>
-                <a href="#">Download</a>
-              </li>
-              <li>
-                <span>Company-brand-book-offical-print.pdf </span>
-                <a href="#">Download</a>
-              </li>
+              {this.state.fileName1 && this.state.filePath1 &&
+                <li>
+                  <span>{this.state.fileName1}</span>
+                  <a href={`/uploads/${this.state.filePath1}`}>Download</a>
+                </li>
+              }
+              {this.state.fileName2 && this.state.filePath2 &&
+                <li>
+                  <span>{this.state.fileName2}</span>
+                  <a href={`/uploads/${this.state.filePath2}`}>Download</a>
+                </li>
+              }
+              {this.state.fileName3 && this.state.filePath3 &&
+                <li>
+                  <span>{this.state.fileName3}</span>
+                  <a href={`/uploads/${this.state.filePath3}`}>Download</a>
+                </li>
+              }
             </ul>
           </div>
         </div>

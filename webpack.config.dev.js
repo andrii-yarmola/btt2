@@ -18,6 +18,7 @@ export default {
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([
       { from: 'images', to: 'images' },
+      { from: 'uploads', to: 'uploads' },
       {from: 'js', to: 'js', force: true}
     ])
   ],

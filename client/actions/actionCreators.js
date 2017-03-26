@@ -47,7 +47,7 @@ export function login(data) {
 
 export function sendRequest(requestData) {
   return dispatch => {
-    const { type, name, phone, time, date, email, message } = requestData;
+    const { type, name, phone, time, date, email, message, files } = requestData;
 
     const data = new FormData();
 
@@ -58,9 +58,9 @@ export function sendRequest(requestData) {
     data.append('date', date);
     data.append('email', email);
     data.append('message', message );
-     requestData.files.forEach(
-       (file)=> { data.append('uploads', file) }
-     );
+    files.forEach(
+      (file)=> { data.append('uploads', file) }
+    );
 
     return axios.post('/api/requests', data);
   }

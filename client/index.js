@@ -38,7 +38,7 @@ const router = (
           <Route path="login" component={requireUnAuth(LoginPage)}></Route>
           <Route path="login" component={requireUnAuth(SignupPage)}></Route>
           <Route path="dashboard" component={requireAuth(DashboardPage)}></Route>
-          <Route path="clients/:id-:name" component={requireAuth(ClientDetails)}></Route>
+          <Route path="clients/:id" component={requireAuth(ClientDetails)}></Route>
         </Route>
       </Route>
     </Router>

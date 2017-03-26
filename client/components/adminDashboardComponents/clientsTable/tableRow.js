@@ -10,7 +10,7 @@ const TableRow = ({i, name, email, phone, created_at, type, id}) => {
       <tr>
         <td className="cell01">{i}</td>
         <td className="cell02">
-          <Link to={`/server/clients/${id}-${name}`}>{name} </Link>
+          <Link to={`/server/clients/${id}`}>{name} </Link>
         </td>
         <td className="cell03"><a href={`mailto:${email}`}>{email}</a></td>
         <td className="cell04"><a href={`callto:${phone}`}>{phone}</a></td>
