@@ -63,9 +63,11 @@ class ClientDetails extends React.Component {
                   <div className="form-row">
                     <input type="email" className="form-control" value={this.state.email} readOnly/>
                   </div>
-                  <div className="form-row">
-                    <input type="tel" className="form-control" value={this.state.phone} readOnly/>
-                  </div>
+                  {this.state.phone &&
+                    <div className="form-row">
+                      <input type="tel" className="form-control" value={this.state.phone} readOnly/>
+                    </div>
+                  }
                   {this.state.date && this.state.time && 
                     <div className="form-row form-row-static">
                       <label>Meeting scheduled on</label>
