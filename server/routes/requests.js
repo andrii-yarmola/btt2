@@ -36,7 +36,6 @@ router.post('/', upload.array('uploads', 3), (req, res) => {
       fileName2 = req.files[1].originalname;
     }
     if (req.files[2]) {
-      console.log(123)
       filePath3 = req.files[2].filename;
       fileName3 = req.files[2].originalname;
     }

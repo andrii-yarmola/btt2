@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
-const FormRow = ({ value, onChange, name, type, placeholder, dataRequired, error, hasLink, formRequired }) => {
+const FormRow = ({ value, onChange, name, type, placeholder, dataRequired, error, hasLink, formRequired, classAdditional }) => {
     return (
-        <div className={classnames("form-row", { 'form-required': formRequired })}>
+        <div className={classnames("form-row", classAdditional, { 'form-required': formRequired })}>
           <input 
             value={value}
             onChange={onChange}
