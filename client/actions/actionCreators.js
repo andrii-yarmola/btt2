@@ -1,8 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt from 'jsonwebtoken';
-import paypal from 'paypal-rest-sdk';
-import paypalConfig from '../utils/paypalConfig';
+
 
 // sync actions
 
@@ -85,8 +84,11 @@ export function getClient(id) {
 
 export function generatePaymentLink(data) {
   return dispatch => {
-    const { orderName, price, description } = data;
-    const { CLIENT_ID, CLIENT_SECRET, RETURN_URL, CANCEL_URL, MODE, CURRENCY } = paypalConfig;
-   
+    const orderData = {
+      orderName: data.orderName,
+      price: data.price,
+      description: data.description
+    }
+    return axios.post('/api/payments', orderData);
   }
 }

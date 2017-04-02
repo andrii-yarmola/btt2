@@ -18,10 +18,10 @@ export default (req, res, next) => {
         new User({ id: decoded.id }).fetch().then(user => {
           if (!user) {
             res.status(404).json({ error: 'no such user' });
+          } else {
+            //req.curentUser = user;
+            next();
           }
-          
-          //req.curentUser = user;
-          next();
         });
       }
     });

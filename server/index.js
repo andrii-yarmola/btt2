@@ -10,6 +10,7 @@ import webpackConfig from '../webpack.config.dev';
 import users from './routes/users';
 import auth from './routes/auth';
 import requests from './routes/requests';
+import payments from './routes/payments';
 
 let app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/requests', requests);
+app.use('/api/payments', payments);
 
 const compiler = webpack(webpackConfig);
 

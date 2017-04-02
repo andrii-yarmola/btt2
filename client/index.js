@@ -8,6 +8,8 @@ import DashboardPage from './components/dashboardPage/dashboardPage';
 import AdminMain from './components/adminMain/adminMain';
 import App from './App';
 import ClientDetails from './components/clientDetails/clientDetails';
+import SuccessPage from './components/successPage/successPage';
+import CancelPage from './components/cancelPage/cancelPage';
 
 import verifyAuthToken from './utils/verifyAuthToken';
 
@@ -39,6 +41,8 @@ const router = (
           <Route path="login" component={requireUnAuth(SignupPage)}></Route>
           <Route path="dashboard" component={requireAuth(DashboardPage)}></Route>
           <Route path="clients/:id" component={requireAuth(ClientDetails)}></Route>
+          <Route path="success" component={SuccessPage}></Route>
+          <Route path="cancelled" component={CancelPage}></Route>
         </Route>
       </Route>
     </Router>
