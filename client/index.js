@@ -38,7 +38,7 @@ const router = (
         <Route path="server" component={AdminMain}>
           <IndexRoute component={LoginPage}></IndexRoute>
           <Route path="login" component={requireUnAuth(LoginPage)}></Route>
-          <Route path="login" component={requireUnAuth(SignupPage)}></Route>
+          <Route path="signup" component={requireUnAuth(SignupPage)}></Route>
           <Route path="dashboard" component={requireAuth(DashboardPage)}></Route>
           <Route path="clients/:id" component={requireAuth(ClientDetails)}></Route>
           <Route path="success" component={SuccessPage}></Route>

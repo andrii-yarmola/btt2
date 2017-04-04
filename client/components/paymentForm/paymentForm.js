@@ -10,7 +10,8 @@ class PaymentForm extends React.Component {
       price: '',
       description: '',
       errors: {},
-      isLoading: false
+      isLoading: false,
+      approvalUrl: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,7 +23,13 @@ class PaymentForm extends React.Component {
   
   onSubmit(e) {
     e.preventDefault();
-    this.props.generatePaymentLink(this.state);
+    this.setState({ errors: {}, isLoading: true});
+    this.props.generatePaymentLink(this.state).then(
+      (res) => {
+        this.setState({ isLoading: false, approvalUrl: res.data.approvalUrl })
+      },
+      (err) => this.setState({ errors: err.response.data, isLoading: false })
+    );
   }
   
   render() {
@@ -75,6 +82,13 @@ class PaymentForm extends React.Component {
               />
             </div>
           </div>
+          {this.state.approvalUrl && 
+            <div className="form-row">
+              <a href={this.state.approvalUrl}>
+                {this.state.approvalUrl}
+              </a>
+            </div>
+          }
         </form>
     </div>
     )

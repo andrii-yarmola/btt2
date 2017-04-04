@@ -58,7 +58,7 @@ class ClientsTable extends React.Component {
     this.props.getClients(this.state)
     .then(
       res => this.setState({ isTableLoaded: true , tableData: res.data.data, pagesCount: res.data.count}),
-      err => this.setState({ errors: res.errors})
+      err => this.setState({ errors: err.errors})
     )
   }
 

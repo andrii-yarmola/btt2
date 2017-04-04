@@ -1,10 +1,16 @@
 import express from 'express';
 import paypal from 'paypal-rest-sdk';
 import paypalConfig from '../configs/paypalConfig';
+import url from 'url';
+
+import authenticate from '../middlewares/authenticate'
+
+import Order from '../models/order';
+import Orders from '../collections/orders';
 
 let router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', authenticate, (req, res) => {
   const { orderName, description, price } = req.body;
   const { CLIENT_ID, CLIENT_SECRET, RETURN_URL, CANCEL_URL, MODE, CURRENCY } = paypalConfig;
   
@@ -32,13 +38,34 @@ router.post('/', (req, res) => {
     }]
   };
   
-  paypal.payment.create(create_payment_json, function (error, payment) {
-    if (error) {
-      console.log(error.response);
-      throw error;
+  paypal.payment.create(create_payment_json, (err, payment) => {
+    if (err) {
+      console.log(err.response);
+      throw err;
     } else {
-      console.log("Create Payment Response");
-      console.log(payment);
+      let approvalUrl = payment.links.find(link => link.rel == 'approval_url').href;
+      let token = url.parse(approvalUrl, true).query.token;
+      console.log(
+        {
+        name: orderName,
+        amount: price,
+        status: 'new',
+        paymentJson: payment,
+        paymentId: payment.id,
+        token: token
+      }
+      )
+      Order.forge({
+        name: orderName,
+        amount: price,
+        status: 'new',
+        //paymentJson: payment,
+        paymentId: payment.id,
+        token: token
+      }, { hasTimestamps: true }).save();
+      
+      
+      res.json({ approvalUrl: approvalUrl });
     }
   });
   
