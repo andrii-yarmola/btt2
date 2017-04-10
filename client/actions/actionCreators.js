@@ -76,6 +76,15 @@ export function getClients(data) {
   }
 }
 
+export function getOrders(data) {
+  const { pageSize, currentPage, activeFilter, filterDirectionUp} = data;
+  const filterDirection = filterDirectionUp ? 'ASC' : 'DESC';
+  const requestData = { pageSize, currentPage, activeFilter, filterDirection }
+  return dispatch => {
+    return axios.get('/api/payments', { params: requestData });
+  }
+}
+
 export function getClient(id) {
   return dispatch => {
     return axios.get(`/api/requests/${id}`);

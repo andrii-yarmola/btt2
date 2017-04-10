@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.string('name');
     table.string('amount');
     table.string('status'); // paid, pending, canleled, new, refunded
-    table.string('paymentJson');
+    table.string('paymentJson', [2048]);
     table.string('paymentId');
     table.string('token');
     table.timestamps(); // date generated and chanched

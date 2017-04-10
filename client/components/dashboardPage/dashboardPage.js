@@ -1,10 +1,11 @@
 import React from 'react';
 import ClientsTable from '../adminDashboardComponents/clientsTable/table';
 import PaymentForm from '../paymentForm/paymentForm';
+import OrdersTable from '../adminDashboardComponents/ordersTable/table';
 
 class DashboardPage extends React.Component {
   render() {
-    const { getClients, generatePaymentLink } = this.props;
+    const { getClients, getOrders, generatePaymentLink } = this.props;
     return (
       <main className="main">
         <div className="content">
@@ -13,7 +14,7 @@ class DashboardPage extends React.Component {
               <PaymentForm generatePaymentLink={generatePaymentLink}/>
             </div>
             <div role="tabpanel" className="tab-pane" id="orders">
-                THIS IS orders TAB
+              <OrdersTable getOrders={getOrders}/>
             </div>
             <div role="tabpanel" className="tab-pane" id="clients">
               <ClientsTable getClients={getClients}/>
