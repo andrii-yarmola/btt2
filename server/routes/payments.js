@@ -23,6 +23,7 @@ router.get('/', authenticate, (req, res) => {
       const collectionFormatted = newCollection.map(
         (row) => {
           row.created_at = moment(row.created_at).format("MMM DD YYYY");
+          row.updated_at = moment(row.updated_at).format("MMM DD YYYY");
           return row
         }
       );

@@ -11,6 +11,7 @@ import users from './routes/users';
 import auth from './routes/auth';
 import requests from './routes/requests';
 import payments from './routes/payments';
+import paymentProcessing from './routes/paymentProcessing';
 
 let app = express();
 
@@ -20,6 +21,7 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/requests', requests);
 app.use('/api/payments', payments);
+app.use('/server/success', paymentProcessing);
 
 const compiler = webpack(webpackConfig);
 

@@ -13,7 +13,7 @@ const TableBody = ({ tableData, isTableLoaded, startNumber }) => {
             status={row.status}
             amount={row.amount}
             created_at={row.created_at}
-            changed_at={row.changed_at}
+            updated_at={row.updated_at}
           />)
         }
       </tbody>
