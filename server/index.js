@@ -21,7 +21,7 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/requests', requests);
 app.use('/api/payments', payments);
-app.use('/server/success', paymentProcessing);
+app.use('/server', paymentProcessing);
 
 const compiler = webpack(webpackConfig);
 
